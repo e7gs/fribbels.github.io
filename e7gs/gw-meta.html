@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script src="jquery.min.js"></script>
+
+<link rel="shortcut icon" type="image/ico" href="favicon.ico"/>
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+<link rel="stylesheet" href="copyPaste.css"/>
+
+</head>
+
+
+<body class='bodyClass'>
+
+<a id="homeLink" style="text-decoration: none;color: inherit"><h1>Fribbels E7 Guild War Meta Tracker</h1></a>
+
+<p id="intro" class="intro">
+This app tracks attacks from top 30 ranked guild war matchups.
+</p>
+
+<p>
+  Check out the Fribbels discord server for more info <a href="https://discord.gg/rDmB4Un7qg">https://discord.gg/rDmB4Un7qg</a>
+</p>
+
+<div class="hSpace"></div>
+<h2>Fighting a defense</h2>
+
+Search for a defense team to find common offenses used against it
+<div class="hSpace"></div>
+
+<div class="defenseHeroesSelection">
+    <select class="heroSelector" name="hero0" id="heroSelector0">
+      <option value=""></option>
+    </select>
+
+    <div class="vSpace"></div>
+
+    <select class="heroSelector" name="hero1" id="heroSelector1">
+      <option value=""></option>
+    </select>
+
+    <div class="vSpace"></div>
+
+    <select class="heroSelector" name="hero2" id="heroSelector2">
+      <option value=""></option>
+    </select>
+</div>
+
+<div class="hSpace"></div>
+
+Optional: Filter teams including/excluding a unit
+<div class="hSpace"></div>
+
+<div class="defenseHeroesSelection">
+    <select class="heroSelector" name="hero3" id="heroSelector3">
+      <option value=""></option>
+    </select>
+
+    <div class="vSpace"></div>
+
+    <select class="heroSelector" name="hero4" id="heroSelector4">
+      <option value=""></option>
+    </select>
+</div>
+
+
+<div class="hSpace"></div>
+
+<div id="defenseIcons" class="defenseIcons"></div>
+
+<div class="hSpace"></div>
+
+<input type="button" value="Search" id="searchButton"></input>
+
+<div class="resultsRows" id="resultRows"></div>
+
+
+
+<div class="hSpace"></div>
+<div class="hSpace"></div>
+<div class="hSpace"></div>
+<div class="hSpace"></div>
+
+
+<div class="hSpace"></div>
+<h2>Building a defense</h2>
+
+Search for units to find common defenses using those units
+<div class="hSpace"></div>
+
+<div class="defenseHeroesSelection">
+    <select class="heroSelector" name="hero0" id="buildDefHeroSelector0">
+      <option value=""></option>
+    </select>
+
+    <div class="vSpace"></div>
+
+    <select class="heroSelector" name="hero1" id="buildDefHeroSelector1">
+      <option value=""></option>
+    </select>
+
+    <div class="vSpace"></div>
+
+    <select class="heroSelector" name="hero2" id="buildDefHeroSelector2">
+      <option value=""></option>
+    </select>
+</div>
+
+<div class="hSpace"></div>
+
+Optional: Filter teams including/excluding a unit
+<div class="hSpace"></div>
+
+<div class="defenseHeroesSelection">
+    <select class="heroSelector" name="hero3" id="buildDefHeroSelector3">
+      <option value=""></option>
+    </select>
+
+    <div class="vSpace"></div>
+
+    <select class="heroSelector" name="hero4" id="buildDefHeroSelector4">
+      <option value=""></option>
+    </select>
+</div>
+
+<div class="hSpace"></div>
+
+<div id="buildDefDefenseIcons" class="defenseIcons"></div>
+
+<div class="hSpace"></div>
+
+<input type="button" value="Search" id="buildDefSearchButton"></input>
+<div class="hSpace"></div>
+
+<div class="resultsRows" id="buildDefResultRows"></div>
+
+
+
+<div class="resultsRows" id="metaRows"></div>
+
+
+<a href="https://www.buymeacoffee.com/fribbels">
+<div class="coffeeContainer">
+  <img class="coffeeContainerImage" id="coffeeImage" src="coffee.png">
+</div>
+</a>
+
+<script src="copyPaste.js"></script>
+
+</body>
