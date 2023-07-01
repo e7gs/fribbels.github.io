@@ -23,6 +23,8 @@ jQuery(document).ready(function($){
 
     translate ();
 
+    $('.resultsRows').css ('margin-top', '20px')
+
     // document.title = "Fribbels GW Meta Tracker"
     document.title = "Fribbels 團戰 Meta 紀錄追蹤工具"
 
