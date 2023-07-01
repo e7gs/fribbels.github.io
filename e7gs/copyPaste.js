@@ -221,7 +221,7 @@ function showMeta() {
             <img class="metaAtkImg" src="battle_pvp_icon_defeat.png"></img>
 
             <div class="metaResultsPercent">
-                ${isNaN(percent) ? "No results" : percent + " %"}
+                ${isNaN(percent) ? "沒有可用的搜尋結果" : percent + " %"}
             </div>
         </div>
     </div>
@@ -259,7 +259,7 @@ function showMeta() {
             <img class="metaAtkImg" src="battle_pvp_icon_lose.png"></img>
 
             <div class="metaResultsPercent">
-                ${isNaN(percent) ? "No results" : percent + " %"}
+                ${isNaN(percent) ? "沒有可用的搜尋結果" : percent + " %"}
             </div>
         </div>
     </div>
@@ -321,7 +321,7 @@ function search() {
             offenseComps = json.data;
 
             if (!offenseComps) {
-                $('#resultRows').html("No results")
+                $('#resultRows').html("沒有可用的搜尋結果")
                 return
             }
 
@@ -385,7 +385,7 @@ function search() {
 //                     <div class="results L">${offense[1].l}L</div>
 //                 </div>
 //                 <div class="metaResultsPercent">
-//                     ${isNaN(percent) ? "No results" : percent + " %"}
+//                     ${isNaN(percent) ? "沒有可用的搜尋結果" : percent + " %"}
 //                 </div>
 //             </div>
 //         </div>
@@ -408,7 +408,7 @@ function search() {
             <img class="metaAtkImg" src="battle_pvp_icon_lose.png"></img>
 
             <div class="metaResultsPercent">
-                ${isNaN(percent) ? "No results" : percent + " %"}
+                ${isNaN(percent) ? "沒有可用的搜尋結果" : percent + " %"}
             </div>
         </div>
     </div>
@@ -458,7 +458,7 @@ function buildDefSearch() {
             offenseComps = json.data;
 
             if (!offenseComps) {
-                $('#buildDefResultRows').html("No results")
+                $('#buildDefResultRows').html("沒有可用的搜尋結果")
                 return
             }
 
@@ -522,7 +522,7 @@ function buildDefSearch() {
 //                     <div class="results L">${offense[1].l}L</div>
 //                 </div>
 //                 <div class="metaResultsPercent">
-//                     ${isNaN(percent) ? "No results" : percent + " %"}
+//                     ${isNaN(percent) ? "沒有可用的搜尋結果" : percent + " %"}
 //                 </div>
 //             </div>
 //         </div>
@@ -552,7 +552,7 @@ function buildDefSearch() {
             <img class="metaAtkImg" src="battle_pvp_icon_defeat.png"></img>
 
             <div class="metaResultsPercent">
-                ${isNaN(percent) ? "No results" : percent + " %"}
+                ${isNaN(percent) ? "沒有可用的搜尋結果" : percent + " %"}
             </div>
         </div>
     </div>
