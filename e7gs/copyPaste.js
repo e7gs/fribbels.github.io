@@ -644,7 +644,7 @@ function transHero (name) {
   if (typeof HEROS_NAME_MAPPER[name] === 'undefined' || HEROS_NAME_MAPPER[name] === '')
     return name
 
-  return HEROS_NAME_MAPPER[name]
+  return HEROS_NAME_MAPPER[name] + ' ' + name
 }
 
 function findTransedHero (name) {
