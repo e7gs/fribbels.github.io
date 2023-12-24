@@ -137,7 +137,7 @@ jQuery(document).ready(function($){
         try {
             if (urlParams) {
                 var names = urlParams.split(",")
-                var ids = names.map(x => Object.entries(heroesById).find(y => y[1] == x)[0])
+                var ids = names.map(x => Object.entries(heroesById).find(y => y[1] == x))
 
                 selector0.val(ids[0]).trigger("change");
                 selector1.val(ids[1]).trigger("change");
