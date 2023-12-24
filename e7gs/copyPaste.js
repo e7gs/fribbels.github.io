@@ -641,6 +641,12 @@ function translate () {
 
 function transHero (name) {
 
+  // 檢查是否有翻譯
+  /*
+  if (typeof HEROS_NAME_MAPPER[name] === 'undefined')
+    console.log ('transHero', typeof HEROS_NAME_MAPPER[name] === 'undefined' ? name : HEROS_NAME_MAPPER[name])
+  */
+
   if (typeof HEROS_NAME_MAPPER[name] === 'undefined' || HEROS_NAME_MAPPER[name] === '')
     return name
 
