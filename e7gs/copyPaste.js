@@ -875,7 +875,7 @@ const HEROS_NAME_MAPPER = {
   "Nahkwol": "落月",
   "Navy Captain Landy": "海軍上校蘭蒂 (光蘭蒂)",
   "Nemunas": "尼姆拉斯",
-  "Ocean Breeze Luluca": "海洋香氣璐璐卡 (木璐璐卡)",
+  "Ocean Breeze Luluca": "海洋香氣璐璐卡 (木璐璐卡 木LLK)",
   "Operator Sigret": "操作員賽珂蘭特 (暗眼鏡 暗鐮刀)",
   "Orte": "奧樂緹",
   "Otillie": "奧緹莉爾",
