@@ -977,7 +977,7 @@ const HEROS_NAME_MAPPER = {
   "Zealot Carmainerose": "傳道者卡麥蘿茲 (火爪)",
   "Zeno": "傑諾",
   "Zerato": "杰拉圖",
-  "Zio": "智武",
+  "Zio": "智武 (暗皇帝 暗帝)",
 };
 
 var flipped = [];
