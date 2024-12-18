@@ -737,7 +737,7 @@ const HEROS_NAME_MAPPER = {
   "Brieg": "布里克 (指揮官)",
   "Butcher Corps Inquisitor": "混沌教屠殺追擊者",
   "Byblis": "維波里絲 (微波 花園)",
-  "Bystander Hwayoung": "",
+  "Bystander Hwayoung": "旁觀者和英 (暗和英 暗腿)",
   "Camilla": "卡蜜拉",
   "Captain Rikoris": "先鋒隊長里科黎司",
   "Carmainerose": "卡麥蘿茲 (火爪)",
