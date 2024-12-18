@@ -22,18 +22,14 @@ buildDefSelector4 = null
 jQuery(document).ready(function($){
 
     translate ();
-
-    $('.resultsRows').css ('margin-top', '20px')
-
-    // document.title = "Fribbels GW Meta Tracker"
+    //document.title = "Fribbels GW Meta Tracker"
     document.title = "Fribbels 團戰 Meta 紀錄追蹤工具"
-
     $("#homeLink").attr("href", window.location.href.split('?')[0])
 
     var options = {
         sortField: 'text',
         width: 'resolve', // need to override the changed default
-        // placeholder: "Select hero",
+        //placeholder: "Select hero",
         placeholder: "選擇角色",
         templateResult: formatHeroList,
         theme: "classic",
@@ -51,7 +47,7 @@ jQuery(document).ready(function($){
     var excludeOptions = {
         sortField: 'text',
         width: 'resolve', // need to override the changed default
-        // placeholder: "Exclude hero",
+        //placeholder: "Exclude hero",
         placeholder: "排除特定角色",
         templateResult: formatHeroList,
         theme: "classic",
@@ -137,7 +133,7 @@ jQuery(document).ready(function($){
         try {
             if (urlParams) {
                 var names = urlParams.split(",")
-                var ids = names.map(x => Object.entries(heroesById).find(y => y[1] == x))
+                var ids = names.map(x => Object.entries(heroesById).find(y => y[1] == x)[0])
 
                 selector0.val(ids[0]).trigger("change");
                 selector1.val(ids[1]).trigger("change");
@@ -149,10 +145,11 @@ jQuery(document).ready(function($){
             console.error("Url parsing failed", e);
         }
 
-
-
         loadedHeroData = true;
         checkReady();
+    }).catch((e) => {
+        console.log(e)
+        $('#metaRows').html("</br></br></br>沒有近期團戰資料")
     })
 
 });
@@ -170,7 +167,7 @@ function showMeta() {
     var urlParams = new URLSearchParams(queryString).get('def');
 
     $.ajax({
-        url: dev ? "http://127.0.0.1:5000/getMeta" : "https://krivpfvxi0.execute-api.us-west-2.amazonaws.com/dev/getMeta",
+        url: dev ? "http://127.0.0.1:5000/getMeta" : "https://z4tfy2r5kc.execute-api.us-west-2.amazonaws.com/dev/getMeta",
         //force to handle it as text
         dataType: "text",
         type: "POST",
@@ -183,8 +180,8 @@ function showMeta() {
             var offenses = Object.entries(json.offenseData)
             var totalSize = json.totalSize
 
-            // $('#intro').html(`This app tracks data from ${totalSize.toLocaleString("en-US")} attacks from top 30 ranked guild wars. Latest update: ${new Date(json.maxTimestamp*1000).toDateString()}.`)
-            $('#intro').html(`此工具紀錄追蹤排名前 30 公會的團戰對戰組合共 ${totalSize.toLocaleString("en-US")} 次攻擊紀錄。最後更新時間：${new Date(json.maxTimestamp*1000).toDateString()}。`)
+            // $('#intro').html(`This app tracks data from ${totalSize.toLocaleString("en-US")} attacks from top 50 ranked guild wars. Latest update: ${new Date(json.maxTimestamp*1000).toDateString()}.`)
+            $('#intro').html(`此工具紀錄追蹤排名前 50 公會的團戰對戰組合共 ${totalSize.toLocaleString("en-US")} 次攻擊紀錄。最後更新時間：${new Date(json.maxTimestamp*1000).toDateString()}。`)
 
             if (urlParams) {
                 return;
@@ -193,8 +190,8 @@ function showMeta() {
             defenses.sort((a, b) => (b.w+b.l) - (a.w+a.l))
             offenses.sort((a, b) => (b[1].w+b[1].l) - (a[1].w+a[1].l))
 
-            //var html = "</br></br><h2>Top 50 most common meta defenses in past 3 weeks</h2>";
-            var html = "</br></br><h2>過去三週，前 50 名常見的團戰防守組合</h2>";
+            //var html = "</br></br><h2>Top 50 most common meta defenses in past 4 weeks</h2>";
+            var html = "</br></br><h2>過去四週，前 50 名常見的團戰防守組合</h2>";
             for (var i = 0; i < 50; i++) {
                 var defense = defenses[i];
                 var percent = (defense.w/(defense.l + defense.w) * 100).toFixed(1);
@@ -229,10 +226,10 @@ function showMeta() {
 `
             }
 
-            //html += "</br></br><h2>Top 30 most common meta offense units in past 3 weeks</h2>"
-            html += "</br></br><h2>過去三週，前 30 名常見的團戰進攻組合</h2>"
+            //html += "</br></br><h2>Top 50 most common meta offense units in past 4 weeks</h2>"
+            html += "</br></br><h2>過去四週，前 50 名常見的團戰進攻組合</h2>"
 
-            for (var i = 0; i < 30; i++) {
+            for (var i = 0; i < 50; i++) {
                 var offenseName = offenses[i][0];
                 var offenseWL = offenses[i][1];
                 var percent = (offenseWL.w/(offenseWL.l + offenseWL.w) * 100).toFixed(1);
@@ -274,14 +271,11 @@ function showMeta() {
 }
 
 function formatHeroList(hero) {
-
     if (!hero.id) {
         return hero.text
     }
-
     var originalHero = findTransedHero (hero.text);
-
-    var output = $(`<div class="searchRowContainer"><img src="${heroData[originalHero].assets.icon}" class="heroSearchIcon" />${hero.text}</div>`);
+    var output = $(`<div class="searchRowContainer"><img src="${heroData[hero.text].assets.icon}" class="heroSearchIcon" />${hero.text}</div>`);
 
     return output;
 };
@@ -304,7 +298,7 @@ function search() {
     window.history.replaceState(null, null, "?def=" + names);
 
     $.ajax({
-        url: dev ? "http://127.0.0.1:5000/getDef" : "https://krivpfvxi0.execute-api.us-west-2.amazonaws.com/dev/getDef",
+        url: dev ? "http://127.0.0.1:5000/getDef" : "https://z4tfy2r5kc.execute-api.us-west-2.amazonaws.com/dev/getDef",
         //force to handle it as text
         dataType: "text",
         type: "POST",
@@ -441,7 +435,7 @@ function buildDefSearch() {
 
 
     $.ajax({
-        url: dev ? "http://127.0.0.1:5000/buildDef" : "https://krivpfvxi0.execute-api.us-west-2.amazonaws.com/dev/buildDef",
+        url: dev ? "http://127.0.0.1:5000/buildDef" : "https://z4tfy2r5kc.execute-api.us-west-2.amazonaws.com/dev/buildDef",
         //force to handle it as text
         dataType: "text",
         type: "POST",
@@ -611,8 +605,8 @@ function imgHtml(offenseStr) {
 
 function translate () {
 
-  // Fribbels E7 Guild War Meta Tracker
-  $('h1:contains("Fribbels E7 Guild War Meta Tracker")').text ('Fribbels E7 團戰 Meta 紀錄追蹤工具');
+  // Fribbels Epic 7 Guild War Meta Tracker
+  $('h1:contains("Fribbels Epic 7 Guild War Meta Tracker")').text ('Fribbels 第七史詩 團戰 Meta 紀錄追蹤工具');
 
   // This app tracks attacks from top 30 ranked guild war matchups.
   $('p:contains("This app tracks attacks from top 30 ranked guild war matchups.")').text ('此工具紀錄追蹤排名前 30 公會的團戰對戰組合。');
@@ -621,19 +615,19 @@ function translate () {
   $('#intro').next ('p').html ('更多資訊請參考 Fribbels Discord 伺服器 <a href="https://discord.gg/rDmB4Un7qg">https://discord.gg/rDmB4Un7qg</a>');
 
   // Fighting a defense
-  $('h2:contains("Fighting a defense")').text ('攻擊防守組合');
+  $('h2:contains("Fighting a defense")').text ('進攻組合');
 
   // Search for a defense team to find common offenses used against it
-  $('p:contains("Search for a defense team to find common offenses used against it")').text ('選擇防守組合，以找出常見的進攻隊伍');
+  $('p:contains("Search for a defense team to find common offenses used against it")').text ('選擇防守隊伍，以找出常見的進攻組合');
 
   // Optional: Filter teams including/excluding a unit
-  $('p:contains("Optional: Filter teams including/excluding a unit")').text ('選項：指定包含或排除特定角色');
+  $('p:contains("Optional: Filter teams including/excluding a unit")').text ('可選：指定包含或排除特定角色');
 
   // Building a defense
-  $('h2:contains("Building a defense")').text ('建立防守組合');
+  $('h2:contains("Building a defense")').text ('建立防守隊伍');
 
   // Search for units to find common defenses using those units
-  $('p:contains("Search for units to find common defenses using those units")').text ('選擇進攻角色，以找出常見的防守組合（較佳防禦率）');
+  $('p:contains("Search for units to find common defenses using those units")').text ('選擇進攻隊伍，以找出常見的防守組合（較佳防禦率）');
 
   $('input[value="Search"]').val ('搜尋');
 }
