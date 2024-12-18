@@ -635,14 +635,15 @@ function translate () {
 
 function transHero (name) {
 
-  // 檢查是否有翻譯
-  /*
-  if (typeof HEROS_NAME_MAPPER[name] === 'undefined')
-    console.log ('transHero', typeof HEROS_NAME_MAPPER[name] === 'undefined' ? name : HEROS_NAME_MAPPER[name])
-  */
+  if (typeof HEROS_NAME_MAPPER[name] === 'undefined' || HEROS_NAME_MAPPER[name] === '') {
 
-  if (typeof HEROS_NAME_MAPPER[name] === 'undefined' || HEROS_NAME_MAPPER[name] === '')
+    if (typeof HEROS_NAME_NOT_IN_MAPPER[name] === 'undefined' ) {
+      HEROS_NAME_MAPPER[name] = ''
+      HEROS_NAME_NOT_IN_MAPPER[name] = ''
+    }
+
     return name
+  }
 
   return HEROS_NAME_MAPPER[name] + ' ' + name
 }
@@ -655,6 +656,26 @@ function findTransedHero (name) {
   return HEROS_NAME_MAPPER_FLIPPED[name]
 }
 
+// 輸出 HEROS_NAME_MAPPER 完整文字結構到 console 以便複製貼上
+function heros () {
+
+  // 按照 key 排序 HEROS_NAME_MAPPER
+  var ordered = [], all = '', missed = '';
+
+  ordered = Object.keys(HEROS_NAME_MAPPER).sort()
+
+  for (var name of ordered) {
+    all += `"${name}": "${HEROS_NAME_MAPPER[name]}",\n`
+  }
+
+  for (var name of Object.keys(HEROS_NAME_NOT_IN_MAPPER)) {
+    missed += `"${name}": "",\n`
+  }
+
+  console.log ('\n🔻🔻🔻🔻🔻\n完整清單：\n🔺🔺🔺🔺🔺\n\n', all)
+  console.log ('\n🔻🔻🔻🔻🔻\n未翻譯清單：\n🔺🔺🔺🔺🔺\n\n', missed)
+}
+
 
 const HEROS_NAME_MAPPER = {
   "Abigail": "雅碧凱 (阿比)",
@@ -663,14 +684,13 @@ const HEROS_NAME_MAPPER = {
   "Adin": "艾庭",
   "Adlay": "亞迪賴",
   "Adventurer Ras": "冒險家拉斯 (男主)",
-  "ae-GISELLE": "ae-GISELLE",
-  "ae-KARINA": "ae-KARINA (隊長 水拳)",
-  "ae-NINGNING": "ae-NINGNING",
-  "ae-WINTER": "ae-WINTER (冬天)",
+  "Afternoon Soak Flan": "午時戲水芙蘭 (火芙 午時蘭 五十蘭)",
   "Ainos": "艾諾斯",
   "Ainos 2.0": "艾諾斯 2.0",
   "Ains": "艾因茲",
+  "Ainz Ooal Gown": "安茲‧烏爾‧恭 (飛鼠 莫莫)",
   "Aither": "埃德勒 (小王子)",
+  "Albedo": "雅爾貝德 (總管 病嬌)",
   "Alencia": "艾蓮西雅 (龍姨)",
   "Alexa": "雅莉莎 (小水刺)",
   "All-Rounder Wanda": "疑難雜症專家汪達",
@@ -706,6 +726,8 @@ const HEROS_NAME_MAPPER = {
   "Bellona": "維爾蘿娜 (木扇)",
   "Benevolent Romann": "仁慈的洛曼 (光洛曼)",
   "Benimaru": "紅丸",
+  "Bernard": "伯納德",
+  "Birgitta": "碧兒姬達",
   "Blaze Dingo": "烈火汀果",
   "Blood Blade Karin": "血劍卡琳 (血卡)",
   "Blood Moon Haste": "赤月的貴族海斯特 (暗海 暗正太)",
@@ -715,6 +737,7 @@ const HEROS_NAME_MAPPER = {
   "Brieg": "布里克 (指揮官)",
   "Butcher Corps Inquisitor": "混沌教屠殺追擊者",
   "Byblis": "維波里絲 (微波 花園)",
+  "Bystander Hwayoung": "",
   "Camilla": "卡蜜拉",
   "Captain Rikoris": "先鋒隊長里科黎司",
   "Carmainerose": "卡麥蘿茲 (火爪)",
@@ -760,6 +783,8 @@ const HEROS_NAME_MAPPER = {
   "Doll Maker Pearlhorizon": "製偶師波蘿萊珍 (木爪)",
   "Dominiel": "多米妮爾 (冰兔)",
   "Doris": "朵莉思",
+  "Dragon Bride Senya": "龍之伴侶賽娜 (新娘)",
+  "Dragon King Sharun": "龍王莎倫",
   "Eaton": "伊頓",
   "Eda": "艾妲 (水法)",
   "Edward Elric": "愛德華‧愛力克 (矮豆)",
@@ -767,7 +792,9 @@ const HEROS_NAME_MAPPER = {
   "Eligos": "艾利戈斯",
   "Elphelt": "愛爾菲特 (火兔 兔槍)",
   "Elson": "艾爾森",
+  "Elvira": "艾碧拉 (水腿 水腳)",
   "Emilia": "愛蜜莉雅 (EMT)",
+  "Empyrean Ilynav": "蒼穹伊莉娜芙 (光饅頭)",
   "Enott": "艾諾特",
   "Ervalen": "艾爾巴倫",
   "Eternal Wanderer Ludwig": "永劫漂流者魯特比 (暗魯特比 暗正太 魔術方塊)",
@@ -776,9 +803,12 @@ const HEROS_NAME_MAPPER = {
   "Faithless Lidica": "無神論者麗迪卡 (光弓)",
   "Falconer Kluri": "鷹獵人可露莉 (鷹盾)",
   "Fallen Cecilia": "墮落的賽西莉亞 (暗龍 暗賽西)",
+  "Fenris": "佩里斯",
+  "Festive Eda": "慶典艾妲",
   "Fighter Maya": "戰鬥型瑪雅 (光瑪雅)",
   "Flan": "芙蘭",
   "Free Spirit Tieria": "永恆不變的黛莉亞 (光黛)",
+  "Frida": "弗莉達 (福利達)",
   "Fumyr": "芙米爾",
   "Furious": "尤貝烏斯 (開水)",
   "General Purrgis": "大將法濟斯 (光狗)",
@@ -788,25 +818,30 @@ const HEROS_NAME_MAPPER = {
   "Great Chief Khawana": "大族長卡瓦娜",
   "Guider Aither": "求道者埃德勒 (光王子)",
   "Gunther": "坤特 (坤哥)",
+  "Harsetti": "赫爾賽蒂 (女帝)",
   "Hasol": "夏率",
   "Haste": "海斯特 (火正太)",
   "Hataan": "哈坦",
   "Hazel": "海茲",
   "Helen": "海倫",
   "Helga": "赫爾嘉",
+  "Hellion Lua": "小惡魔路雅 (暗路雅)",
   "Holiday Yufine": "度假風優芬妮 (噴火龍 火龍)",
   "Holy Flame Adin": "聖炎的艾庭",
   "Hurado": "修拉杜 (光頭)",
   "Hwayoung": "和英 (火腿)",
   "Ian": "伊安",
   "Ilynav": "伊莉娜芙 (黑饅頭)",
+  "Immortal Wukong": "不滅神機悟空",
   "Inferno Khawazu": "烈焰的卡瓦朱 (暗香蕉)",
   "Infinite Horizon Achates": "未知的可能性雅卡泰絲 (光火奶)",
+  "Inheritor Amiki": "傳承雅蜜琪",
   "Iseria": "伊賽麗亞 (木飛劍)",
-  "Jack-O": "潔克‧歐",
+  "Jack-O": "潔克‧歐 (JKO)",
   "Januta": "扎努塔",
   "Jecht": "傑克托",
   "Jena": "捷娜",
+  "Jenua": "濟紐亞 (雞牛鴨 狗團)",
   "Judge Kise": "審判者綺世 (光74 光綺世)",
   "Judith": "茱迪絲 (小火刺)",
   "Juni": "珠妮",
@@ -824,9 +859,11 @@ const HEROS_NAME_MAPPER = {
   "Kizuna AI": "絆愛",
   "Kluri": "可露莉",
   "Krau": "克勞烏 (寶馬)",
+  "Laia": "萊婭",
   "Landy": "蘭蒂 (LD)",
   "Last Piece Karin": "最後的碎片卡琳 (光卡琳)",
   "Last Rider Krau": "最後的騎士克勞烏 (光寶馬)",
+  "Leah": "蕾婭",
   "Lena": "雷娜 (水拳)",
   "Leo": "雷歐",
   "Lethe": "麗希 (深淵 章魚)",
@@ -869,6 +906,7 @@ const HEROS_NAME_MAPPER = {
   "Nahkwol": "落月",
   "Navy Captain Landy": "海軍上校蘭蒂 (光蘭蒂 光LD)",
   "Nemunas": "尼姆拉斯",
+  "New Moon Luna": "新月露娜 (光水龍)",
   "Ocean Breeze Luluca": "海洋香氣璐璐卡 (木璐璐卡 木LLK)",
   "Operator Sigret": "操作員賽珂蘭特 (暗眼鏡 暗鐮刀)",
   "Orte": "奧樂緹",
@@ -878,10 +916,12 @@ const HEROS_NAME_MAPPER = {
   "Pearlhorizon": "波蘿萊珍",
   "Peira": "沛伊拉 (水狼)",
   "Penelope": "潘尼羅佩",
+  "Pernilla": "培妮拉",
   "Pirate Captain Flan": "海盜船長芙蘭 (暗芙蘭)",
   "Politis": "佛里蒂絲 (火法 火輪椅 火雙子)",
   "Purrgis": "法濟斯 (木狗)",
   "Pyllis": "費莉絲",
+  "Ragnvald": "朗巴特",
   "Ram": "拉姆",
   "Ran": "嵐",
   "Ras": "拉斯 (男主)",
@@ -892,6 +932,7 @@ const HEROS_NAME_MAPPER = {
   "Requiem Roana": "鎮魂的羅安納 (暗木瓜)",
   "Requiemroar": "雷奎姆洛 (暗爪)",
   "Researcher Carrot": "研究者卡蘿 (卡羅)",
+  "Revna": "蕾芙娜",
   "Righteous Thief Roozid": "義賊魯茲德 (木狗)",
   "Rikoris": "里科黎司 (光槍)",
   "Rima": "黎瑪",
@@ -907,7 +948,9 @@ const HEROS_NAME_MAPPER = {
   "Ruele of Light": "光之瑞兒 (光瑞 光奶)",
   "Sage Baal & Sezan": "賢者巴爾&塞尚 (光巴)",
   "Savior Adin": "救援者艾庭 (光艾庭)",
+  "Schniel": "修尼爾 (國王 日野聰)",
   "Schuri": "修里 (火槍 火修里)",
+  "Sea Phantom Politis": "海上幽靈佛里蒂絲 (暗雙)",
   "Seaside Bellona": "海邊的維爾蘿娜 (水扇)",
   "Senya": "賽娜",
   "Serene Purity Adin": "清玄的艾庭",
@@ -915,6 +958,7 @@ const HEROS_NAME_MAPPER = {
   "Sez": "賽茲 (水刺)",
   "Shadow Knight Pyllis": "黑騎士費莉絲 (小暗盾)",
   "Shadow Rose": "暗影蘿季 (暗蘿季)",
+  "Shalltear": "夏提雅",
   "Sharun": "莎倫",
   "Shepherd Jena": "引導者捷娜",
   "Shooting Star Achates": "流星雅卡泰絲 (暗火奶)",
@@ -951,8 +995,8 @@ const HEROS_NAME_MAPPER = {
   "Troublemaker Crozet": "不法之徒克羅澤 (暗團長)",
   "Twisted Eidolon Kayron": "扭曲的亡靈凱隆 (光凱隆)",
   "Tywin": "泰溫",
-  "Urban Shadow Choux": "都市暗影小泡芙 (暗泡芙)",
   "Unbound Knight Arowell": "自由騎士雅洛薇 (小光盾)",
+  "Urban Shadow Choux": "都市暗影小泡芙 (暗泡芙)",
   "Verdant Adin": "新綠的艾庭",
   "Veronica": "貝洛妮卡",
   "Vigilante Leader Glenn": "自衛隊隊長格倫",
@@ -961,9 +1005,12 @@ const HEROS_NAME_MAPPER = {
   "Vivian": "薇薇安 (VVA)",
   "Wanda": "汪達",
   "Wanderer Silk": "流浪者席可 (光席可)",
+  "Wandering Prince Cidd": "流浪王子席德 (光席德)",
   "Watcher Schuri": "注視者修里 (光修里)",
+  "Westwind Executioner Schuri": "西風處刑者修里 (暗修里)",
   "Wild Angara": "野生安卡拉",
   "Yoonryoung": "尹凌",
+  "Young Senya": "小小賽娜",
   "Yufine": "優芬妮 (木龍)",
   "Yulha": "律荷",
   "Yuna": "尤娜 (學生會長)",
@@ -972,7 +1019,13 @@ const HEROS_NAME_MAPPER = {
   "Zeno": "傑諾",
   "Zerato": "杰拉圖",
   "Zio": "智武 (暗皇帝 暗帝)",
+  "ae-GISELLE": "ae-GISELLE",
+  "ae-KARINA": "ae-KARINA (隊長 水拳)",
+  "ae-NINGNING": "ae-NINGNING",
+  "ae-WINTER": "ae-WINTER (冬天)",
 };
+
+const HEROS_NAME_NOT_IN_MAPPER = {}
 
 var flipped = [];
 
