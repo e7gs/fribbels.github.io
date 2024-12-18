@@ -181,7 +181,7 @@ function showMeta() {
             var totalSize = json.totalSize
 
             // $('#intro').html(`This app tracks data from ${totalSize.toLocaleString("en-US")} attacks from top 50 ranked guild wars. Latest update: ${new Date(json.maxTimestamp*1000).toDateString()}.`)
-            $('#intro').html(`此工具紀錄追蹤排名前 50 公會的團戰對戰組合共 ${totalSize.toLocaleString("en-US")} 次攻擊紀錄。最後更新時間：${new Date(json.maxTimestamp*1000).toDateString()}。`)
+            $('#intro').html(`此工具紀錄追蹤排名前 50 公會的團戰對戰組合共 ${totalSize.toLocaleString("en-US")} 次進攻紀錄。最後更新時間：${new Date(json.maxTimestamp*1000).toDateString()}。`)
 
             if (urlParams) {
                 return;
