@@ -139,10 +139,11 @@ jQuery(document).ready(function($){
             console.error("Url parsing failed", e);
         }
 
-
-
         loadedHeroData = true;
         checkReady();
+    }).catch((e) => {
+        console.log(e)
+        $('#metaRows').html("</br></br></br>No data for recent guild wars")
     })
 
 });
@@ -160,7 +161,7 @@ function showMeta() {
     var urlParams = new URLSearchParams(queryString).get('def');
 
     $.ajax({
-        url: dev ? "http://127.0.0.1:5000/getMeta" : "https://krivpfvxi0.execute-api.us-west-2.amazonaws.com/dev/getMeta",
+        url: dev ? "http://127.0.0.1:5000/getMeta" : "https://z4tfy2r5kc.execute-api.us-west-2.amazonaws.com/dev/getMeta",
         //force to handle it as text
         dataType: "text",
         type: "POST",
@@ -173,7 +174,7 @@ function showMeta() {
             var offenses = Object.entries(json.offenseData)
             var totalSize = json.totalSize
 
-            $('#intro').html(`This app tracks data from ${totalSize.toLocaleString("en-US")} attacks from top 30 ranked guild wars. Latest update: ${new Date(json.maxTimestamp*1000).toDateString()}.`)
+            $('#intro').html(`This app tracks data from ${totalSize.toLocaleString("en-US")} attacks from top 50 ranked guild wars. Latest update: ${new Date(json.maxTimestamp*1000).toDateString()}.`)
 
             if (urlParams) {
                 return;
@@ -182,7 +183,7 @@ function showMeta() {
             defenses.sort((a, b) => (b.w+b.l) - (a.w+a.l))
             offenses.sort((a, b) => (b[1].w+b[1].l) - (a[1].w+a[1].l))
 
-            var html = "</br></br><h2>Top 50 most common meta defenses in past 3 weeks</h2>";
+            var html = "</br></br><h2>Top 50 most common meta defenses in past 4 weeks</h2>";
             for (var i = 0; i < 50; i++) {
                 var defense = defenses[i];
                 var percent = (defense.w/(defense.l + defense.w) * 100).toFixed(1);
@@ -217,9 +218,9 @@ function showMeta() {
 `
             }
 
-            html += "</br></br><h2>Top 30 most common meta offense units in past 3 weeks</h2>"
+            html += "</br></br><h2>Top 50 most common meta offense units in past 4 weeks</h2>"
 
-            for (var i = 0; i < 30; i++) {
+            for (var i = 0; i < 50; i++) {
                 var offenseName = offenses[i][0];
                 var offenseWL = offenses[i][1];
                 var percent = (offenseWL.w/(offenseWL.l + offenseWL.w) * 100).toFixed(1);
@@ -287,7 +288,7 @@ function search() {
     window.history.replaceState(null, null, "?def=" + names);
 
     $.ajax({
-        url: dev ? "http://127.0.0.1:5000/getDef" : "https://krivpfvxi0.execute-api.us-west-2.amazonaws.com/dev/getDef",
+        url: dev ? "http://127.0.0.1:5000/getDef" : "https://z4tfy2r5kc.execute-api.us-west-2.amazonaws.com/dev/getDef",
         //force to handle it as text
         dataType: "text",
         type: "POST",
@@ -424,7 +425,7 @@ function buildDefSearch() {
 
 
     $.ajax({
-        url: dev ? "http://127.0.0.1:5000/buildDef" : "https://krivpfvxi0.execute-api.us-west-2.amazonaws.com/dev/buildDef",
+        url: dev ? "http://127.0.0.1:5000/buildDef" : "https://z4tfy2r5kc.execute-api.us-west-2.amazonaws.com/dev/buildDef",
         //force to handle it as text
         dataType: "text",
         type: "POST",
