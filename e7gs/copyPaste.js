@@ -271,11 +271,11 @@ function showMeta() {
 }
 
 function formatHeroList(hero) {
-    if (!hero.id) {
+    if (!hero.id || ! heroesById[hero.id]) {
         return hero.text
     }
-    var originalHero = findTransedHero (hero.text);
-    var output = $(`<div class="searchRowContainer"><img src="${heroData[hero.text].assets.icon}" class="heroSearchIcon" />${hero.text}</div>`);
+    var originalHeroName = findTransedHero (hero.text);
+    var output = $(`<div class="searchRowContainer"><img src="${heroData[originalHeroName].assets.icon}" class="heroSearchIcon" />${hero.text}</div>`);
 
     return output;
 };
